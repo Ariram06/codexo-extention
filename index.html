@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>codexo </title>
+  <style>
+    :root {
+      --bg: #02070b;
+      --bg-soft: #071018;
+      --card: #060d16;
+      --text: #e7ecf2;
+      --muted: #7f8b9d;
+      --green: #19d38f;
+      --green-strong: #0bbf7a;
+      --border: rgba(120, 145, 170, 0.2);
+      --border-green: rgba(25, 211, 143, 0.55);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 12%, rgba(25, 211, 143, 0.18), transparent 32%),
+        radial-gradient(circle at 88% 22%, rgba(52, 129, 255, 0.15), transparent 36%),
+        linear-gradient(rgba(15, 120, 91, 0.16), transparent 25%),
+        repeating-linear-gradient(to right, rgba(21, 49, 66, 0.25) 0 1px, transparent 1px 56px),
+        repeating-linear-gradient(to bottom, rgba(21, 49, 66, 0.25) 0 1px, transparent 1px 56px),
+        var(--bg);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container { width: min(1200px, calc(100% - 3rem)); margin: 0 auto; }
+
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(10px);
+      background: rgba(2, 7, 11, 0.85);
+      border-bottom: 1px solid rgba(125, 151, 180, 0.15);
+    }
+
+    .nav-content { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 24px;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      text-transform: lowercase;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      color: #001a10;
+      background: linear-gradient(135deg, #26f4a8, #0dbb79);
+      box-shadow: 0 10px 28px rgba(25, 211, 143, 0.45);
+      font-weight: 900;
+      font-size: 0.95rem;
+    }
+
+    .nav-links { display: flex; gap: 26px; }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    .btn-primary {
+      border: none;
+      border-radius: 999px;
+      padding: 11px 18px;
+      color: #02100b;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--green), var(--green-strong));
+      box-shadow: 0 10px 28px rgba(25, 211, 143, 0.32);
+      cursor: pointer;
+    }
+
+    .hero {
+      padding: 74px 0 28px;
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero-copy {
+      position: relative;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(25, 211, 143, 0.25), transparent 70%);
+      filter: blur(10px);
+      top: -100px;
+      left: -80px;
+      z-index: -1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #6df5c4;
+      border: 1px solid rgba(25, 211, 143, 0.45);
+      background: rgba(25, 211, 143, 0.08);
+      border-radius: 999px;
+      padding: 7px 14px;
+      margin-bottom: 22px;
+      font-size: 15px;
+    }
+
+    h1 {
+      font-size: clamp(2.35rem, 6vw, 4.45rem);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      text-wrap: balance;
+    }
+    .accent { color: var(--green); }
+
+    .hero p {
+      color: #98a5b8;
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      max-width: 620px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+    .login-btn{
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+      color: #d4ddeb;
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .quick-stats {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 560px;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(7, 14, 23, 0.72);
+    }
+
+    .stat strong {
+      display: block;
+      color: #b0ffde;
+      font-size: 1.1rem;
+    }
+
+    .stat span {
+      font-size: 0.84rem;
+      color: #94a0b0;
+    }
+
+    .editor {
+      border: 1px solid rgba(127, 145, 165, 0.25);
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(9, 17, 28, 0.98), rgba(5, 12, 20, 0.98));
+      overflow: hidden;
+      box-shadow: 0 26px 45px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .editor::after {
+      content: "Live coaching";
+      position: absolute;
+      top: 16px;
+      right: 18px;
+      font-size: 0.72rem;
+      color: #b4f9dd;
+      border: 1px solid rgba(25, 211, 143, 0.4);
+      background: rgba(25, 211, 143, 0.08);
+      padding: 4px 8px;
+      border-radius: 999px;
+    }
+
+    .editor-header {
+      padding: 13px 16px;
+      border-bottom: 1px solid rgba(140, 155, 176, 0.16);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #6e7c90;
+      font-size: 14px;
+    }
+
+    .dots { display: inline-flex; gap: 7px; }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .dot.r { background: #ef5350; }
+    .dot.y { background: #d2a820; }
+    .dot.g { background: #24bf6f; }
+
+    .editor pre {
+      margin: 0;
+      padding: 24px;
+      color: #d6e0ec;
+      font-size: 1.16rem;
+      line-height: 1.75;
+      font-family: "SF Mono", Menlo, Consolas, monospace;
+      min-height: 380px;
+      overflow: auto;
+    }
+
+    .feature-chips {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      border: 1px solid rgba(125, 151, 180, 0.26);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 0.84rem;
+      color: #a2b2c6;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .section { padding: 96px 0 34px; }
+    .section h2 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      text-align: center;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+    }
+
+    .section p.lead {
+      color: var(--muted);
+      text-align: center;
+      max-width: 670px;
+      margin: 0 auto 44px;
+      font-size: 1.14rem;
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(10,17,27,0.96), rgba(7,14,23,0.96));
+      padding: 28px;
+      transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -60px auto;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, rgba(25, 211, 143, 0.14), transparent 70%);
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: var(--border-green);
+      box-shadow: 0 0 0 1px rgba(25, 211, 143, 0.16), 0 18px 28px rgba(0, 0, 0, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .card h3 { font-size: 2rem; line-height: 1.15; margin-bottom: 9px; }
+    .card p { color: #8997aa; font-size: 1.08rem; }
+
+    .steps {
+      padding-bottom: 40px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px 20px;
+      background: rgba(7, 14, 23, 0.82);
+      transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+    }
+
+    .step:hover {
+      border-color: var(--border-green);
+      box-shadow: 0 0 0 1px rgba(25, 211, 143, 0.15);
+      transform: translateY(-1px);
+    }
+
+    .num {
+      margin: 0 auto 12px;
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #00140b;
+      font-weight: 800;
+      background: linear-gradient(135deg, #26f4a8, #0dbb79);
+    }
+
+    .step h3 { font-size: 1.75rem; margin-bottom: 7px; }
+    .step p { color: #8d9bb0; }
+
+    .cta-panel {
+      margin: 14px 0 88px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(130deg, rgba(9, 25, 22, 0.9), rgba(7, 13, 22, 0.95));
+      padding: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .cta-panel h3 {
+      font-size: clamp(1.2rem, 3vw, 1.9rem);
+      line-height: 1.2;
+    }
+
+    .cta-panel p {
+      color: #91a0b4;
+      max-width: 60ch;
+    }
+
+    footer {
+      border-top: 1px solid rgba(125, 151, 180, 0.2);
+      color: #8793a5;
+      text-align: center;
+      padding: 25px 0 30px;
+    }
+
+    @media (max-width: 1000px) {
+      .hero { grid-template-columns: 1fr; }
+      .editor pre { min-height: 250px; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .quick-stats { max-width: none; }
+    }
+
+    @media (max-width: 760px) {
+      .container { width: min(1200px, calc(100% - 1.2rem)); }
+      .nav-links { display: none; }
+      .grid, .steps, .quick-stats { grid-template-columns: 1fr; }
+      .card h3, .step h3 { font-size: 1.55rem; }
+      .btn-primary, .btn-secondary { width: 100%; }
+      .hero-actions { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <div class="logo"><div class="logo-icon">&lt;/&gt;</div><span>codexo</span></div>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#support">Support</a>
+      </div>
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
+  </nav>
+
+  <main class="container hero">
+    <section class="hero-copy">
+      <div class="badge">● Chrome Extension — Free & Open Source</div>
+      <h1><br><span class="accent"> Codexo : </span>When you play the Game of Codes , you win or you debug. </h1>
+      <p>codexo adds professional, context-aware hints, AI chat, feedback loops, and progress insights to any coding challenge interface—without disrupting your current workflow.</p>
+      <div class="hero-actions">
+        <button class="btn-primary">Install Chrome Extension</button>
+      </div>
+      <div class="quick-stats" aria-label="Codexo stats">
+        <div class="stat"><strong>4x</strong><span>faster hint clarity</span></div>
+        <div class="stat"><strong>24/7</strong><span>AI coding guidance</span></div>
+        <div class="stat"><strong>100%</strong><span>practice-first focus</span></div>
+      </div>
+    </section>
+
+    <section class="editor" aria-label="Code preview">
+      <div class="editor-header">
+        <div class="dots"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span></div>
+        <span>two_sum.py</span>
+      </div>
+      <pre><code>def pair_indices(nums, target):
+    seen = {}
+    for i, n in enumerate(nums):
+        need = target - n
+        if need in seen:
+            return [seen[need], i]
+        seen[n] = i</code></pre>
+      <div class="feature-chips">
+        <span class="chip">Pattern Detection</span>
+        <span class="chip">Complexity Feedback</span>
+        <span class="chip">Edge-case Coach</span>
+      </div>
+    </section>
+  </main>
+
+  <section id="features" class="section container">
+    <h2>Everything you need to <span class="accent">level up</span></h2>
+    <p class="lead">Four focused tools designed to accelerate problem-solving and interview readiness.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Smart Hints</h3>
+        <p>Progressive, non-spoiler hints that guide your thinking without giving away the answer.</p>
+      </article>
+      <article class="card">
+        <h3>AI Chat</h3>
+        <p>Ask questions about edge cases, trade-offs, optimizations, and implementation choices.</p>
+      </article>
+      <article class="card">
+        <h3>Progress Tracking</h3>
+        <p>Visualize your growth across topics, consistency, and speed-to-solution over time.</p>
+      </article>
+      <article class="card">
+        <h3>Code Review</h3>
+        <p>Get instant feedback on complexity, readability, edge-case handling, and quality.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="workflow" class="section container">
+    <h2>How it <span class="accent">works</span></h2>
+    <p class="lead">Three simple steps to supercharge your coding practice.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="num">1</div>
+        <h3>Install Extension</h3>
+        <p>Add codexo to your browser in one click.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <h3>Open Problems</h3>
+        <p>codexo detects coding context and initializes support automatically.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <h3>Get AI Coaching</h3>
+        <p>Practice with hints, ask targeted questions, and refine solutions instantly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="container">
+    <div class="cta-panel">
+      <div>
+        <h3>Ready to ship cleaner logic and crack harder problems?</h3>
+        <p>Install codexo and turn every coding session into a high-energy, high-growth practice sprint.</p>
+      </div>
+      <button class="btn-primary">Get Started Free</button>
+    </div>
+  </section>
+
+  <footer id="support">
+    <div class="container">© 2026 codexo • Built for serious coding practice.</div>
+  </footer>
+</body>
+</html>
+
+<script type="module" src="firebase.js"></script>

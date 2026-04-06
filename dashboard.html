@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Codexo Dashboard</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Inter, sans-serif;
+background:#020617;
+color:white;
+
+background-image:
+linear-gradient(rgba(0,255,170,0.05) 1px, transparent 1px),
+linear-gradient(90deg, rgba(0,255,170,0.05) 1px, transparent 1px);
+background-size:40px 40px;
+}
+
+/* NAVBAR */
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 50px;
+border-bottom:1px solid rgba(0,255,170,0.12);
+background:rgba(2,6,23,0.8);
+backdrop-filter:blur(10px);
+}
+
+.logo{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:22px;
+font-weight:600;
+color:#00ffa6;
+}
+
+.nav-actions {
+display: flex;
+align-items: center;
+gap: 12px;
+}
+
+.install-ext{
+background:linear-gradient(135deg,#00ffa6,#00c3ff);
+border:none;
+padding:10px 20px;
+border-radius:12px;
+font-size:14px;
+font-weight:600;
+cursor:pointer;
+color:#020617;
+transition:.3s;
+}
+
+.install-ext:hover{
+transform:translateY(-2px);
+box-shadow:0 8px 24px rgba(0,255,170,0.3);
+}
+
+#logout{
+background:transparent;
+border:1px solid rgba(0,255,170,0.3);
+color:white;
+padding:10px 20px;
+border-radius:12px;
+cursor:pointer;
+transition:.3s;
+}
+
+.logout:hover{
+background:rgba(0,255,170,0.1);
+}
+
+/* MAIN */
+
+.wrapper{
+padding:40px 60px;
+}
+
+/* HERO PANEL */
+
+.hero{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:40px;
+
+background:rgba(10,20,35,0.7);
+border:1px solid rgba(0,255,170,0.15);
+border-radius:20px;
+padding:35px;
+backdrop-filter:blur(20px);
+}
+
+.hero h1{
+margin:0;
+font-size:28px;
+}
+
+.cta{
+background:linear-gradient(135deg,#00ffa6,#00c3ff);
+border:none;
+padding:14px 28px;
+border-radius:14px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.cta:hover{
+transform:translateY(-3px);
+box-shadow:0 12px 30px rgba(0,255,170,0.3);
+}
+
+/* STATS */
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:25px;
+margin-bottom:40px;
+}
+
+.card{
+background:rgba(10,20,35,0.7);
+border:1px solid rgba(0,255,170,0.15);
+border-radius:18px;
+padding:25px;
+backdrop-filter:blur(20px);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 20px 50px rgba(0,255,170,0.08);
+}
+
+.card h2{
+margin:0;
+font-size:34px;
+}
+
+.card p{
+opacity:.6;
+margin-top:6px;
+}
+
+/* GRID SECTION */
+
+.grid{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:30px;
+}
+
+/* ACTIVITY */
+
+.panel{
+background:rgba(10,20,35,0.7);
+border:1px solid rgba(0,255,170,0.15);
+border-radius:20px;
+padding:25px;
+backdrop-filter:blur(20px);
+}
+
+.item{
+padding:14px 0;
+border-bottom:1px solid rgba(255,255,255,0.05);
+opacity:.85;
+}
+
+/* SIDE PANEL */
+
+.sideStat{
+margin-bottom:18px;
+padding:16px;
+border-radius:14px;
+background:rgba(0,255,170,0.05);
+border:1px solid rgba(0,255,170,0.15);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div class="logo"> codexo</div>
+  <div class="nav-actions">
+    <button class="install-ext">Install Chrome Extension</button>
+    <button id="logout">Logout</button>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- HERO -->
+<div class="hero">
+<div>
+<div>
+Welcome, <span id="uname"></span>
+</div>
+
+
+<p style="opacity:.7">Resume last session or start new AI learning </p>
+</div>
+
+<button class="cta">Resume Session</button>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+
+<div class="card">
+<h2>128</h2>
+<p>Total Problems</p>
+</div>
+
+<div class="card">
+<h2>32</h2>
+<p>Sessions</p>
+</div>
+
+<div class="card">
+<h2>87%</h2>
+<p>Accuracy</p>
+</div>
+
+<div class="card">
+<h2>14🔥</h2>
+<p>Day Streak</p>
+</div>
+
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+<div class="panel">
+<h3>Recent Activity</h3>
+
+<div class="item">Solved Sliding Window Problem</div>
+<div class="item">Started Graph DFS Practice</div>
+<div class="item">AI Hint used on DP Question</div>
+<div class="item">Reviewed Binary Search Concept</div>
+
+</div>
+
+<div>
+
+<div class="sideStat">
+<h4>Next Goal</h4>
+<p style="opacity:.7">Reach 150 problems</p>
+</div>
+
+<div class="sideStat">
+<h4>Focus Area</h4>
+<p style="opacity:.7">Dynamic Programming</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="dashboard.js"></script>
+
+</body>
+</html>

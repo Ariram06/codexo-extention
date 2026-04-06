@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Codexo Login</title>
+
+<style>
+
+body{
+  margin:0;
+  height:100vh;
+  font-family: Inter, sans-serif;
+  background:#020617;
+  color:white;
+
+  /* grid background like home */
+  background-image:
+    linear-gradient(rgba(0,255,170,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,170,0.06) 1px, transparent 1px);
+  background-size:40px 40px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.login-container{
+
+  background:rgba(10,20,35,0.7);
+  backdrop-filter: blur(20px);
+
+  border:1px solid rgba(0,255,170,0.15);
+
+  padding:60px 50px;
+  border-radius:20px;
+
+  text-align:center;
+
+  box-shadow:0 0 60px rgba(0,255,170,0.08);
+
+}
+
+h1{
+  font-size:32px;
+  margin-bottom:30px;
+  font-weight:600;
+}
+
+#googleLogin{
+
+  background:linear-gradient(135deg,#00ffa6,#00c3ff);
+  border:none;
+  padding:14px 28px;
+  border-radius:12px;
+
+  font-size:16px;
+  font-weight:600;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+#googleLogin:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 30px rgba(0,255,170,0.3);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+
+<h1>Welcome to Codexo</h1>
+
+<button id="googleLogin">Sign in with Google</button>
+
+</div>
+
+<script type="module" src="auth.js"></script>
+
+</body>
+</html>
